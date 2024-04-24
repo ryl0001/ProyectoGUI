@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
+import javax.swing.JButton;
 
 public class IniciarSesion extends JFrame {
 
@@ -39,6 +40,9 @@ public class IniciarSesion extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		
+		JButton btnNewButton = new JButton("New button");
+		contentPane.add(btnNewButton);
 	}
 
 }
