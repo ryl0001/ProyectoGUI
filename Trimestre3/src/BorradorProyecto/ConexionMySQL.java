@@ -35,11 +35,11 @@ public class ConexionMySQL {
      * @param pass Contraseña del usuario
      * @param bd Base de datos a la que nos conectamos
      */
-    public ConexionMySQL(String usuario, String pass, String bd) {
-        HOST = "localhost";
-        USUARIO = usuario;
-        PASS = pass;
-        BD = bd;
+    public ConexionMySQL(String freedb_ryl0001, String PASS, String freedb_ProyectoTiendaVideojuegos) {
+        HOST = "sql.freedb.tech";
+        USUARIO = freedb_ryl0001;
+        PASS = PASS;
+        BD = freedb_ProyectoTiendaVideojuegos;
         connection = null;
     }
 
