@@ -18,8 +18,8 @@ public class IniciarSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textUs;
+	private JTextField textContraseña;
 
 	/**
 	 * Launch the application.
@@ -41,6 +41,7 @@ public class IniciarSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public IniciarSesion() {
+		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 916, 539);
 		contentPane = new JPanel();
@@ -49,29 +50,29 @@ public class IniciarSesion extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(305, 78, 297, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textUs = new JTextField();
+		textUs.setBounds(320, 78, 297, 20);
+		contentPane.add(textUs);
+		textUs.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Usuario/email");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setBounds(411, 53, 76, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblUs = new JLabel("Usuario/email");
+		lblUs.setForeground(new Color(255, 255, 255));
+		lblUs.setBounds(423, 53, 89, 14);
+		contentPane.add(lblUs);
 		
-		JLabel lblNewLabel_2 = new JLabel("Contraseña");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setBounds(423, 109, 76, 14);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblContra = new JLabel("Contraseña");
+		lblContra.setForeground(new Color(255, 255, 255));
+		lblContra.setBounds(423, 109, 89, 14);
+		contentPane.add(lblContra);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(305, 134, 297, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textContraseña = new JTextField();
+		textContraseña.setBounds(320, 134, 297, 20);
+		contentPane.add(textContraseña);
+		textContraseña.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Entrar");
-		btnNewButton.setBounds(399, 326, 126, 49);
-		contentPane.add(btnNewButton);
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setBounds(399, 341, 126, 49);
+		contentPane.add(btnEntrar);
 		
 		JButton btnSalir = new JButton("Salir\r\n");
 		btnSalir.addActionListener(new ActionListener() {
@@ -79,18 +80,18 @@ public class IniciarSesion extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(398, 386, 127, 49);
+		btnSalir.setBounds(398, 401, 127, 49);
 		contentPane.add(btnSalir);
 		
-		JLabel lblNewLabel_3 = new JLabel("INICIAR SESIÓN");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNewLabel_3.setForeground(new Color(255, 255, 255));
-		lblNewLabel_3.setBounds(360, 11, 165, 31);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblTitulo = new JLabel("INICIAR SESIÓN");
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblTitulo.setForeground(new Color(255, 255, 255));
+		lblTitulo.setBounds(373, 11, 165, 31);
+		contentPane.add(lblTitulo);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(IniciarSesion.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
-		lblNewLabel.setBounds(0, 0, 900, 500);
+		lblNewLabel.setBounds(0, 0, 916, 539);
 		contentPane.add(lblNewLabel);
 	}
 }
