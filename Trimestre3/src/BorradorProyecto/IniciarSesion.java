@@ -70,10 +70,7 @@ public class IniciarSesion extends JFrame {
 		contentPane.add(textContraseña);
 		textContraseña.setColumns(10);
 		
-		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEntrar.setBounds(399, 341, 126, 49);
-		contentPane.add(btnEntrar);
+		
 		
 		JButton btnSalir = new JButton("Salir\r\n");
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -90,6 +87,18 @@ public class IniciarSesion extends JFrame {
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setBounds(373, 11, 165, 31);
 		contentPane.add(lblTitulo);
+		
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Tienda");
+				Tienda EntTienda = new Tienda();
+				EntTienda.setVisible(true);
+			}
+		});
+		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEntrar.setBounds(399, 341, 126, 49);
+		contentPane.add(btnEntrar);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(IniciarSesion.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
