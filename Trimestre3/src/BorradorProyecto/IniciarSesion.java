@@ -71,10 +71,12 @@ public class IniciarSesion extends JFrame {
 		textContraseña.setColumns(10);
 		
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEntrar.setBounds(399, 341, 126, 49);
 		contentPane.add(btnEntrar);
 		
 		JButton btnSalir = new JButton("Salir\r\n");
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
