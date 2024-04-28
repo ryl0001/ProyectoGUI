@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class IniciarSesion extends JFrame {
 
@@ -42,6 +43,7 @@ public class IniciarSesion extends JFrame {
 	 */
 	public IniciarSesion() {
 		setUndecorated(true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(IniciarSesion.class.getResource("/BorradorProyecto/gamers (1) (1).png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 916, 539);
 		contentPane = new JPanel();

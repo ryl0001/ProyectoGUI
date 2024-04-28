@@ -7,9 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ public class Inicio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private ConexionMySQL conexion;
 
 
 	/**
@@ -104,5 +107,13 @@ public class Inicio extends JFrame {
 		lblFondoPantalla.setIcon(new ImageIcon(Inicio.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1).png")));
 		lblFondoPantalla.setBounds(0, 0, 759, 534);
 		contentPane.add(lblFondoPantalla);
+		
+		  /*conexion = new ConexionMySQL("freedb_ryl0001", "5kPB#wMAAq#duy4", "freedb_ProyectoTiendaVideojuegos");
+	        try {
+	            conexion.conectar();
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+	        }*/
 	}
 }
