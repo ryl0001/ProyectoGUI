@@ -6,12 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 
@@ -21,6 +26,7 @@ public class IniciarSesion extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUs;
 	private JTextField textContraseña;
+	private Connection conexion;
 
 	/**
 	 * Launch the application.
@@ -37,6 +43,8 @@ public class IniciarSesion extends JFrame {
 			}
 		});
 	}
+	
+	
 
 	/**
 	 * Create the frame.
@@ -93,14 +101,33 @@ public class IniciarSesion extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTitulo.setText("Tienda");
-				Tienda EntTienda = new Tienda();
-				EntTienda.setVisible(true);
-			}
-		});
+				String email = textUs.getText();
+				String contraseña = textContraseña.getText();
+				String query = "SELECT * FROM Usuarios WHERE email = ? AND contraseña = ?";
+				 try {
+	                    PreparedStatement statement = conexion.prepareStatement(query);
+	                    statement.setString(1, email);
+	                    statement.setString(2, contraseña);
+	                    ResultSet result = statement.executeQuery();
+	                    if (result.next()) {
+	                        // Acceso permitido, aquí puedes abrir la ventana principal o hacer lo que necesites
+	                        lblTitulo.setText("Tienda");
+	                        Tienda EntTienda = new Tienda();
+	                        EntTienda.setVisible(true);
+	                    } else {
+	                        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Por favor, regístrate primero.", "Error", JOptionPane.ERROR_MESSAGE);
+	                    }
+	                } catch (SQLException ex) {
+	                    ex.printStackTrace();
+	                    JOptionPane.showMessageDialog(null, "Error al verificar las credenciales.", "Error", JOptionPane.ERROR_MESSAGE);
+	                }
+	            }
+	        });
 		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEntrar.setBounds(399, 341, 126, 49);
 		contentPane.add(btnEntrar);
+		
+		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(IniciarSesion.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
