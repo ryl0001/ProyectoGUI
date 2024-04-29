@@ -108,7 +108,7 @@ public class Inicio extends JFrame {
 		lblFondoPantalla.setBounds(0, 0, 759, 534);
 		contentPane.add(lblFondoPantalla);
 		
-		ConexionMySQL connect = new ConexionMySQL ("root", "test", "freedb_ProyectoTiendaVideojuegos");
+		ConexionMySQL connect = new ConexionMySQL ("root", "test", "Proyecto");
 	        try {
 	            connect.conectar();
 	        } catch (SQLException ex) {

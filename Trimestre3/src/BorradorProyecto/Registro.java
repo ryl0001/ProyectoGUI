@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -15,18 +16,20 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Registro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textFieldNombre;
+	private JTextField textFieldApellidos;
+	private JTextField textFieldDirr;
+	private JTextField textFieldDNI;
+	private JTextField textemail;
+	private JTextField textFieldCont;
 	private JLabel lblNewLabel;
 	private JButton btnEnviar;
 	private JButton btnSalir;
@@ -54,25 +57,25 @@ public class Registro extends JFrame {
 		lbl_Formulario.setBounds(259, 23, 384, 42);
 		contentPane.add(lbl_Formulario);
 		
-		textField = new JTextField();
-		textField.setBounds(135, 98, 185, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(135, 98, 185, 20);
+		contentPane.add(textFieldNombre);
+		textFieldNombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(361, 98, 185, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldApellidos = new JTextField();
+		textFieldApellidos.setBounds(361, 98, 185, 20);
+		contentPane.add(textFieldApellidos);
+		textFieldApellidos.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(270, 154, 373, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		textFieldDirr = new JTextField();
+		textFieldDirr.setBounds(270, 154, 373, 20);
+		contentPane.add(textFieldDirr);
+		textFieldDirr.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(582, 98, 194, 20);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		textFieldDNI = new JTextField();
+		textFieldDNI.setBounds(582, 98, 194, 20);
+		contentPane.add(textFieldDNI);
+		textFieldDNI.setColumns(10);
 		
 		JLabel lbl_NomForm = new JLabel("Nombre");
 		lbl_NomForm.setForeground(new Color(255, 255, 255));
@@ -104,15 +107,15 @@ public class Registro extends JFrame {
 		lblUs.setBounds(411, 329, 113, 14);
 		contentPane.add(lblUs);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(270, 354, 373, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
+		textemail = new JTextField();
+		textemail.setBounds(270, 354, 373, 20);
+		contentPane.add(textemail);
+		textemail.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(270, 410, 373, 20);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
+		textFieldCont = new JTextField();
+		textFieldCont.setBounds(270, 410, 373, 20);
+		contentPane.add(textFieldCont);
+		textFieldCont.setColumns(10);
 		
 		JLabel lblCont = new JLabel("Contraseña");
 		lblCont.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -123,6 +126,35 @@ public class Registro extends JFrame {
 		btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ConexionMySQL connect = new ConexionMySQL ("root", "test", "Proyecto" );
+				String Nombre = textFieldNombre.getText();
+				String Apellidos = textFieldApellidos.getText();
+				String DNI = textFieldDNI.getText();
+				String Direccion = textFieldDirr.getText();
+				String email = textemail.getText();
+				String Contraseña = textFieldCont.getText();
+				 try {
+			            connect.conectar();
+			            String Consulta = "SELECT * FROM Clientes WHERE DNI= '" + DNI + "'";
+			            
+			            ResultSet Linea=connect.ejecutarSelect(Consulta);
+			            if (Linea.next())
+			            {
+			            	
+			            }
+			            else
+			            {
+			            	String insert = "INSERT INTO Clientes (Nombre, Apellidos, DNI, Email, Contraseña, Direccion) VALUES ('"+ Nombre+"','"+Apellidos+"','"+DNI+"','"+email+"','"+Contraseña+"','"+Direccion+"')";
+			            	connect.ejecutarInsertDeleteUpdate(insert);
+			            	
+			            	dispose();
+			            }
+			        } catch (SQLException ex) {
+			            ex.printStackTrace();
+			            JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+			        }
+				
+				
 			}
 		});
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -143,5 +175,7 @@ public class Registro extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(Registro.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
 		lblNewLabel.setBounds(0, 0, 913, 539);
 		contentPane.add(lblNewLabel);
+		
+		
 	}
 }
