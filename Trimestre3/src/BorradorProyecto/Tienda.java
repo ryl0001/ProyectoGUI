@@ -69,6 +69,19 @@ public class Tienda extends JFrame {
 		lblTitBuscador.setBounds(395, 23, 140, 40);
 		contentPane.add(lblTitBuscador);
 		
+		JButton btnComprar = new JButton("Comprar");
+		btnComprar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnComprar.setBounds(586, 451, 89, 23);
+		contentPane.add(btnComprar);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(131, 92, 220, 22);
+		contentPane.add(comboBox);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(449, 92, 203, 22);
+		contentPane.add(comboBox_1);
+		
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setIcon(new ImageIcon(Tienda.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
 		lblFondo.setBounds(0, 0, 900, 539);
