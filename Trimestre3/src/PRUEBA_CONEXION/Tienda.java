@@ -1,4 +1,4 @@
-package BorradorProyecto;
+package PRUEBA_CONEXION;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;

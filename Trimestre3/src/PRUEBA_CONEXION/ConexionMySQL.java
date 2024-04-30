@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  * Clase para la conexión con una base de datos MySQL
  *
@@ -111,4 +113,5 @@ public class ConexionMySQL {
 
         return fila;
     }
+
 }
