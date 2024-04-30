@@ -101,19 +101,24 @@ public class IniciarSesion extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String email = textUs.getText();
-				String contraseña = textContraseña.getText();
-				String query = "SELECT * FROM Usuarios WHERE email = ? AND contraseña = ?";
+				ConexionMySQL connect = new ConexionMySQL ("root", "test", "Proyecto");
 				 try {
-	                    PreparedStatement statement = conexion.prepareStatement(query);
-	                    statement.setString(1, email);
-	                    statement.setString(2, contraseña);
-	                    ResultSet result = statement.executeQuery();
-	                    if (result.next()) {
-	                        // Acceso permitido, aquí puedes abrir la ventana principal o hacer lo que necesites
-	                        lblTitulo.setText("Tienda");
-	                        Tienda EntTienda = new Tienda();
-	                        EntTienda.setVisible(true);
+					 	connect.conectar();
+					 	
+					 	@SuppressWarnings("deprecation")
+					 	String login = "SELECT * FROM Clientes WHERE email='"+textUs.getText()+"'AND contraseña='"+textContraseña.getText()+"'";
+	                    ResultSet resultado = connect.ejecutarSelect(login);
+	                    
+	                    String ClienteCorrecto=null;
+	                    String ContraseñaCorrecta=null;
+	                    
+	                    if (resultado.next()){
+	                    	ClienteCorrecto = resultado.getString(1);
+	                    	ContraseñaCorrecta = resultado.getString(2);
+	                    	
+	                    	Tienda tienda=new Tienda();
+	                    	tienda.setVisible(true);
+	                    	dispose();
 	                    } else {
 	                        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos. Por favor, regístrate primero.", "Error", JOptionPane.ERROR_MESSAGE);
 	                    }
@@ -121,6 +126,7 @@ public class IniciarSesion extends JFrame {
 	                    ex.printStackTrace();
 	                    JOptionPane.showMessageDialog(null, "Error al verificar las credenciales.", "Error", JOptionPane.ERROR_MESSAGE);
 	                }
+				 			
 	            }
 	        });
 		btnEntrar.setFont(new Font("Tahoma", Font.BOLD, 11));
