@@ -1,65 +1,72 @@
 package PRUEBA_CONEXION;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.JScrollPane;
 
 public class Tienda extends JFrame {
 
-    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTable table;
+    private JComboBox<String> ComboBoxCategoria;
     private ConexionMySQL conexion;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Tienda frame = new Tienda();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                Tienda frame = new Tienda();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public Tienda() {
+        conectarBaseDatos();
+        configurarInterfazUsuario();
+    }
+
+    private void conectarBaseDatos() {
         conexion = new ConexionMySQL("root", "test", "Proyecto");
         try {
             conexion.conectar();
-            // Ejecutamos una consulta para obtener los datos de la tabla deseada
-            ResultSet rs = conexion.ejecutarSelect("SELECT * FROM Videojuegos");
-            // Creamos un modelo de tabla
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos");
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private void cargarCategorias() {
+        try {
+            ResultSet rs = conexion.ejecutarSelect("SELECT Nombre FROM Categoria");
+            while (rs.next()) {
+                ComboBoxCategoria.addItem(rs.getString("Nombre"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar categorías desde la base de datos.");
+        }
+    }
+
+    private void cargarVideojuegosPorCategoria(String categoria) {
+        try {
+            String query = "SELECT * FROM Videojuegos WHERE Categorias_idCategorias1 = ?";
+            PreparedStatement stmt = obtenerPreparedStatement(query);
+            stmt.setString(1, categoria);
+            ResultSet rs = stmt.executeQuery();
+
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("ID");
             model.addColumn("Nombre");
             model.addColumn("Precio");
             model.addColumn("Categoria");
-            // Llenamos el modelo con los resultados de la consulta
+
             while (rs.next()) {
                 Object[] fila = new Object[4];
                 fila[0] = rs.getInt("idVideojuegos");
@@ -68,35 +75,30 @@ public class Tienda extends JFrame {
                 fila[3] = rs.getString("Categorias_idCategorias1");
                 model.addRow(fila);
             }
-            // Inicializamos la tabla con el modelo creado
-            table = new JTable(model);
+
+            table.setModel(model);
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos");
-        } finally {
-            try {
-                conexion.desconectar();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            JOptionPane.showMessageDialog(null, "Error al cargar videojuegos desde la base de datos.");
         }
+    }
 
+    private PreparedStatement obtenerPreparedStatement(String query) throws SQLException {
+        return null;
+    }
+
+    private void configurarInterfazUsuario() {
         setUndecorated(true);
         setIconImage(Toolkit.getDefaultToolkit().getImage(Tienda.class.getResource("/BorradorProyecto/gamers (1) (1).png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 539);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         JButton btnSalir = new JButton("Salir");
-        btnSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        btnSalir.addActionListener(e -> dispose());
         btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
         btnSalir.setBounds(699, 451, 89, 23);
         contentPane.add(btnSalir);
@@ -107,29 +109,40 @@ public class Tienda extends JFrame {
         lblTitBuscador.setBounds(395, 23, 140, 40);
         contentPane.add(lblTitBuscador);
 
-        JButton btnComprar = new JButton("Comprar");
-        btnComprar.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnComprar.setBounds(586, 451, 89, 23);
-        contentPane.add(btnComprar);
-
-        JComboBox ComboBoxVideojuegos = new JComboBox();
-        ComboBoxVideojuegos.setBounds(131, 92, 220, 22);
-        contentPane.add(ComboBoxVideojuegos);
-
-        JComboBox ComboBoxCategoria = new JComboBox();
-        ComboBoxCategoria.setBounds(449, 92, 203, 22);
+        ComboBoxCategoria = new JComboBox<>();
+        ComboBoxCategoria.setBounds(341, 90, 203, 22);
         contentPane.add(ComboBoxCategoria);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(95, 125, 582, 306);
+        scrollPane.setBounds(157, 122, 582, 306);
         contentPane.add(scrollPane);
 
-        // Añadimos la tabla al JScrollPane
+        table = new JTable();
         scrollPane.setViewportView(table);
 
         JLabel lblFondo = new JLabel("");
         lblFondo.setIcon(new ImageIcon(Tienda.class.getResource("/BorradorProyecto/Portada para YouTube de gamer profesional moderno morado (1) (1).png")));
         lblFondo.setBounds(0, 0, 900, 539);
         contentPane.add(lblFondo);
+
+        cargarCategorias();
+
+        ComboBoxCategoria.addActionListener(e -> {
+            String categoriaSeleccionada = (String) ComboBoxCategoria.getSelectedItem();
+            if (categoriaSeleccionada != null) {
+                cargarVideojuegosPorCategoria(categoriaSeleccionada);
+            }
+        });
+    }
+
+    @Override
+    public void dispose() {
+        try {
+            conexion.desconectar();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        super.dispose();
     }
 }
+

@@ -112,16 +112,12 @@ public class Tienda extends JFrame {
         btnComprar.setBounds(586, 451, 89, 23);
         contentPane.add(btnComprar);
 
-        JComboBox ComboBoxVideojuegos = new JComboBox();
-        ComboBoxVideojuegos.setBounds(131, 92, 220, 22);
-        contentPane.add(ComboBoxVideojuegos);
-
         JComboBox ComboBoxCategoria = new JComboBox();
-        ComboBoxCategoria.setBounds(449, 92, 203, 22);
+        ComboBoxCategoria.setBounds(341, 90, 203, 22);
         contentPane.add(ComboBoxCategoria);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(95, 125, 582, 306);
+        scrollPane.setBounds(157, 122, 582, 306);
         contentPane.add(scrollPane);
 
         // Añadimos la tabla al JScrollPane
