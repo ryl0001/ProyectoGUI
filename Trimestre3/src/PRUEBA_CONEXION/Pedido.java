@@ -24,8 +24,13 @@ public class Pedido extends JFrame {
         lblPedido.setFont(new Font("Tahoma", Font.BOLD, 20));
         contentPane.add(lblPedido, BorderLayout.NORTH);
 
-        // Creamos un modelo de tabla
-        DefaultTableModel model = new DefaultTableModel();
+        // Creamos un modelo de tabla no editable
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         model.addColumn("ID");
         model.addColumn("Nombre");
         model.addColumn("Precio");

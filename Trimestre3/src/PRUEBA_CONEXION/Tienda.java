@@ -31,6 +31,7 @@ public class Tienda extends JFrame {
     }
 
     public Tienda() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(IniciarSesion.class.getResource("/BorradorProyecto/gamers (1) (1).png")));
         conexion = new ConexionMySQL("root", "test", "Proyecto");
         try {
             conexion.conectar();
@@ -123,6 +124,16 @@ public class Tienda extends JFrame {
         contentPane.add(scrollPane);
 
         scrollPane.setViewportView(table);
+        
+        JButton btnNewButton = new JButton("Usuario");
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
+        btnNewButton.setBounds(43, 36, 89, 23);
+        contentPane.add(btnNewButton);
         
         // Fondo
         JLabel lblFondo = new JLabel("");
