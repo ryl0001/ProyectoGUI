@@ -68,7 +68,7 @@ public class Pedido extends JFrame {
                         int idVideojuego = Integer.parseInt(videojuego[0].toString());
                         int idCategoria = Integer.parseInt(videojuego[3].toString());
                         String insertQuery = "INSERT INTO Pedidos (Fecha, Estado, Videojuegos_idVideojuegos, Videojuegos_Categorias_idCategorias1, Clientes_idClientes) " +
-                                "VALUES ('" + fechaActual + "', 'Pendiente', " + idVideojuego + ", " + idCategoria + ", 1)"; // Aquí deberías obtener el ID del cliente de alguna manera
+                                "VALUES ('" + fechaActual + "', 'Pendiente', " + idVideojuego + ", " + idCategoria + ", " + IniciarSesion.GuardarUsuario +")"; // Aquí deberías obtener el ID del cliente de alguna manera
                         conexion.ejecutarInsertDeleteUpdate(insertQuery);
                     }
                     conexion.desconectar();
