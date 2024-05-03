@@ -114,7 +114,7 @@ public class ConfirmacionEliminar extends JFrame {
 	        	}
 	                 catch (SQLException ex) {
 	                    ex.printStackTrace();
-	                    JOptionPane.showMessageDialog(null, "Error al verificar las credenciales.", "Error", JOptionPane.ERROR_MESSAGE);
+	                    JOptionPane.showMessageDialog(null, "Error al verificar las credenciales. Es posible que tengas algún pedido pendiente. Contacta con ayuda al cliente.", "Error", JOptionPane.ERROR_MESSAGE);
 	                }
 	        	}
 	        });
